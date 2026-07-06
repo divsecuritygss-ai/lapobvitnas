@@ -45,6 +45,23 @@
                 border-bottom: 4px solid var(--accent-color);
             }
 
+            /* Gaya Visual Logo Aktif di Antarmuka Web (Memaksa Browser Mengunduh Gambar ke Cache) */
+            .web-ui-logos {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: rgba(255, 255, 255, 0.08);
+                padding: 12px 20px;
+                border-radius: 6px;
+                margin-bottom: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .web-ui-logos img {
+                height: 45px;
+                object-fit: contain;
+            }
+
             .app-header h1 {
                 margin: 0;
                 font-size: 22px;
@@ -327,7 +344,6 @@
                 border-top: 25mm solid #0f172a; 
             }
 
-            /* PENATAAN LOGO SEJAJAR KIRI-KANAN DI ATAS JUDUL */
             .cover-logos {
                 display: flex;
                 justify-content: space-between;
@@ -337,7 +353,7 @@
             }
 
             .cover-logos img {
-                height: 22mm; /* Ukuran proporsional logo */
+                height: 22mm; 
                 max-width: 60mm;
                 object-fit: contain;
                 display: block;
@@ -602,13 +618,12 @@
 </head>
 <body>
 
-    <div aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden; z-index: -1;">
-        <img src="logo-skkmigas.png" alt="preload-skk">
-        <img src="logo-emp.png" alt="preload-emp">
-    </div>
-
     <div class="app-container">
         <div class="app-header">
+            <div class="web-ui-logos">
+                <img src="logo-skkmigas.png" alt="SKK Migas Corporate Logo">
+                <img src="logo-emp.png" alt="EMP Corporate Logo">
+            </div>
             <h1>Portal Pengisian Laporan SMP Obvitnas</h1>
             <p>Sistem Pengendalian Mutu Pelaporan Berbasis Panduan Resmi Ditjen Migas ESDM</p>
         </div>
@@ -775,8 +790,8 @@
         
         <div class="cover-page">
             <div class="cover-logos">
-                <img src="logo-skkmigas.png" alt="Logo SKK Migas" class="logo-left">
-                <img src="logo-emp.png" alt="Logo EMP" class="logo-right">
+                <img src="logo-skkmigas.png" alt="Logo SKK Migas">
+                <img src="logo-emp.png" alt="Logo EMP">
             </div>
 
             <div class="cover-badge">Dokumen Laporan Internal Eksekutif</div>
