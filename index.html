@@ -322,9 +322,24 @@
                 height: 297mm;
                 position: relative;
                 box-sizing: border-box;
-                padding: 40mm 25mm 30mm 25mm;
+                padding: 25mm 25mm 30mm 25mm; 
                 background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
                 border-top: 25mm solid #0f172a; 
+            }
+
+            /* Gaya Penataan Logo Sejajar Kiri-Kanan pada Sampul */
+            .cover-logos {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+                margin-bottom: 25mm;
+            }
+
+            .cover-logos img {
+                height: 18mm;
+                object-fit: contain;
+                display: inline-block;
             }
 
             .cover-badge {
@@ -350,7 +365,7 @@
                 font-size: 14pt;
                 font-weight: 600;
                 color: #475569;
-                margin-bottom: 60mm;
+                margin-bottom: 45mm;
                 text-transform: uppercase;
                 border-bottom: 3px solid #0284c7;
                 padding-bottom: 15px;
@@ -511,19 +526,19 @@
                 margin-bottom: 6px;
             }
 
-            /* FIXED: CLOSING STYLING BLOCK SECARA MUTLAK RATA KIRI (SEJAJAR KIRI) */
+            /* CLOSING STYLING BLOCK MUTLAK SEJAJAR KIRI */
             .closing-block {
                 margin-top: 40px;
                 page-break-inside: avoid;
                 border-top: 2px dashed #e2e8f0;
                 padding-top: 25px;
                 width: 100%;
-                text-align: left !important; /* Paksa Rata Kiri Kontainer Utama */
+                text-align: left !important; 
             }
 
             .signature-container {
                 width: 100mm;
-                margin-left: 0 !important; /* Hapus margin otomatis agar mepet ke sisi kiri kertas */
+                margin-left: 0 !important; 
                 text-align: left !important;
                 font-size: 11pt;
             }
@@ -545,7 +560,7 @@
                 border: 1px solid #cbd5e1;
                 padding: 4px;
                 background-color: #ffffff;
-                margin-left: 0 !important; /* Pastikan posisi QR Code mepet kiri */
+                margin-left: 0 !important; 
             }
 
             .signer-line {
@@ -753,6 +768,15 @@
     <div id="print-area">
         
         <div class="cover-page">
+            <div class="cover-logos">
+                <div class="logo-box-left">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' width='100%' height='100%'><rect width='100%' height='100%' fill='none'/><path d='M20 20h30v10H20zm0 20h45v10H20zm0 20h20v10H20z' fill='%230284c7'/><text x='80' y='48' font-family='Arial, sans-serif' font-size='24' font-weight='900' fill='%230f172a' letter-spacing='1'>SKK MIGAS</text></svg>" alt="Logo SKK Migas">
+                </div>
+                <div class="logo-box-right">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80' width='100%' height='100%'><rect width='100%' height='100%' fill='none'/><path d='M10 20h40v40H10z' fill='%230f172a'/><path d='M20 30h20v20H20z' fill='%230284c7'/><text x='65' y='48' font-family='Arial, sans-serif' font-size='26' font-weight='900' fill='%230f172a' letter-spacing='2'>EMP</text></svg>" alt="Logo EMP">
+                </div>
+            </div>
+
             <div class="cover-badge">Dokumen Laporan Internal Eksekutif</div>
             <div class="cover-title">Laporan Penerapan<br>Sistem Manajemen Pengamanan (SMP)</div>
             <div class="cover-subtitle">Objek Vital Nasional Bidang ESDM</div>
