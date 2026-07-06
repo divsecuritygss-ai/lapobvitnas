@@ -322,12 +322,12 @@
                 height: 297mm;
                 position: relative;
                 box-sizing: border-box;
-                padding: 25mm 25mm 30mm 25mm; 
+                padding: 30mm 25mm 30mm 25mm; 
                 background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
                 border-top: 25mm solid #0f172a; 
             }
 
-            /* Gaya Penataan Logo Sejajar Kiri-Kanan pada Sampul */
+            /* PENATAAN LOGO SEJAJAR KIRI-KANAN DI ATAS JUDUL */
             .cover-logos {
                 display: flex;
                 justify-content: space-between;
@@ -337,9 +337,10 @@
             }
 
             .cover-logos img {
-                height: 18mm;
+                height: 22mm; /* Ukuran proporsional logo */
+                max-width: 60mm;
                 object-fit: contain;
-                display: inline-block;
+                display: block;
             }
 
             .cover-badge {
@@ -601,6 +602,11 @@
 </head>
 <body>
 
+    <div aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden; z-index: -1;">
+        <img src="logo-skkmigas.png" alt="preload-skk">
+        <img src="logo-emp.png" alt="preload-emp">
+    </div>
+
     <div class="app-container">
         <div class="app-header">
             <h1>Portal Pengisian Laporan SMP Obvitnas</h1>
@@ -769,12 +775,8 @@
         
         <div class="cover-page">
             <div class="cover-logos">
-                <div class="logo-box-left">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' width='100%' height='100%'><rect width='100%' height='100%' fill='none'/><path d='M20 20h30v10H20zm0 20h45v10H20zm0 20h20v10H20z' fill='%230284c7'/><text x='80' y='48' font-family='Arial, sans-serif' font-size='24' font-weight='900' fill='%230f172a' letter-spacing='1'>SKK MIGAS</text></svg>" alt="Logo SKK Migas">
-                </div>
-                <div class="logo-box-right">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 80' width='100%' height='100%'><rect width='100%' height='100%' fill='none'/><path d='M10 20h40v40H10z' fill='%230f172a'/><path d='M20 30h20v20H20z' fill='%230284c7'/><text x='65' y='48' font-family='Arial, sans-serif' font-size='26' font-weight='900' fill='%230f172a' letter-spacing='2'>EMP</text></svg>" alt="Logo EMP">
-                </div>
+                <img src="logo-skkmigas.png" alt="Logo SKK Migas" class="logo-left">
+                <img src="logo-emp.png" alt="Logo EMP" class="logo-right">
             </div>
 
             <div class="cover-badge">Dokumen Laporan Internal Eksekutif</div>
