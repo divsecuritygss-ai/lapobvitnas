@@ -467,7 +467,7 @@
             }
 
             .identity-table td {
-                padding: 12px 15px;
+                padding: 12px 0; /* Padding horizontal di-nol-kan agar rata kiri sempurna dengan judul BAB */
                 vertical-align: top;
                 font-size: 11pt;
             }
@@ -476,7 +476,7 @@
             }
 
             .identity-table td.label-col {
-                width: 160px;
+                width: 180px; /* Diperlebar sedikit */
                 font-weight: 700;
                 color: #0f172a;
                 text-transform: uppercase;
@@ -485,9 +485,10 @@
             }
 
             .identity-table td.separator-col {
-                width: 15px;
+                width: 25px; /* Jarak titik dua diperlebar agar tidak sesak */
                 text-align: center;
-                color: #cbd5e1;
+                color: #94a3b8;
+                font-weight: bold;
             }
 
             .section-title {
@@ -514,25 +515,31 @@
             }
 
             .sub-section {
-                padding-left: 15px;
-                margin-top: 10px;
+                padding-left: 0; /* Dinol-kan agar abjad 'a' menempel rata dengan margin kiri utama */
+                margin-top: 15px;
             }
 
             .sub-section-item {
                 display: flex;
-                margin-bottom: 18px;
+                margin-bottom: 20px;
                 page-break-inside: avoid;
             }
 
             .sub-section-item .alpha-prefix {
-                width: 30px;
+                width: 35px; /* Memberikan ruang ideal untuk prefix abjad */
+                padding-left: 10px; /* Indentasi abjad sedikit agar dinamis namun rapi */
                 flex-shrink: 0;
                 font-weight: bold;
+                font-size: 11pt;
                 color: #bfa15f;
+                box-sizing: border-box;
             }
 
             .sub-section-item .content-body {
-                width: 100%;
+                width: calc(100% - 35px);
+                font-weight: bold; /* Menebalkan Sub-Judul agar hierarki jelas */
+                color: #0f172a;
+                font-size: 11pt;
             }
 
             /* FORCE RATA KIRI KANAN MUTLAK */
@@ -547,11 +554,12 @@
                 text-align: justify !important;
                 text-justify: inter-word !important;
                 font-size: 11pt !important;
+                color: #334155; /* Memberi warna teks konten sedikit lebih pudar agar kontras dengan Sub-Judul */
             }
 
             .content-text {
-                margin-top: 6px;
-                font-weight: normal;
+                margin-top: 8px; /* Menambah jarak antara Sub-Judul dan isinya */
+                font-weight: normal; /* Mengembalikan isi ke reguler agar tidak ikut bold */
                 width: 100%;
             }
 
@@ -699,12 +707,12 @@
 
             <script>
                 const OBVITNAS_MASTER_DATA = [
-                    { nama: 'Fasilitas Wilayah Kerja "B" Block', pengelola: 'PT Pema Global Energi', lokasi: 'Prov. Aceh' },
-                    { nama: 'Fasilitas Wilayah Kerja Siak', pengelola: 'EMP Energi Gandewa', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau' },
-                    { nama: 'Fasilitas Wilayah Kerja Malacca Strait Onshore dan Offshore', pengelola: 'PT Imbang Tata Alam', lokasi: 'Perairan Selat Malaka, Prov. Riau' },
-                    { nama: 'Fasilitas Wilayah Kerja Korinci Baru', pengelola: 'EMP Korinci Baru Ltd.', lokasi: 'Kab. Siak, Kab. Pelalawan, Prov. Riau' },
-                    { nama: 'Fasilitas Wilayah Kerja Bentu', pengelola: 'EMP Bentu Ltd.', lokasi: 'Kab. Pelalawan, Prov. Riau' },
-                    { nama: 'Fasilitas Wilayah Kerja Kampar', pengelola: 'EMP Energi Riau', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau' }
+                    { nama: 'Fasilitas Wilayah Kerja "B" Block', pengelola: 'PT Pema Global Energi', lokasi: 'Prov. Aceh', lat: 5.06838752036436, lng: 97.2557499339021 },
+                    { nama: 'Fasilitas Wilayah Kerja Siak', pengelola: 'EMP Energi Gandewa', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau', lat: 0.780293984274352, lng: 100.792977267704 },
+                    { nama: 'Fasilitas Wilayah Kerja Malacca Strait Onshore dan Offshore', pengelola: 'PT Imbang Tata Alam', lokasi: 'Perairan Selat Malaka, Prov. Riau', lat: 1.055754898608, lng: 102.259218000071 },
+                    { nama: 'Fasilitas Wilayah Kerja Korinci Baru', pengelola: 'EMP Korinci Baru Ltd.', lokasi: 'Kab. Siak, Kab. Pelalawan, Prov. Riau', lat: 0.547897823057397, lng: 101.463010324493 },
+                    { nama: 'Fasilitas Wilayah Kerja Bentu', pengelola: 'EMP Bentu Ltd.', lokasi: 'Kab. Pelalawan, Prov. Riau', lat: 0.547897823057397, lng: 101.463010324493 },
+                    { nama: 'Fasilitas Wilayah Kerja Kampar', pengelola: 'EMP Energi Riau', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau', lat: -0.0637072309029115, lng: 102.325967165082 }
                 ];
 
                 function handleObvitnasDropdownChange() {
@@ -828,7 +836,7 @@
                 <img src="https://lh3.googleusercontent.com/d/1c2T6vxWg2LnU6h82uASvLcsIrCxQSQd1" alt="EMP Corporate Logo">
             </div>
 
-            <div class="cover-badge">Dokumen Laporan Internal Eksekutif</div>
+            <div class="cover-badge">LAPORAN SEMESTER I TAHUN 2026</div>
             <div class="cover-title">Laporan Penerapan<br>Sistem Manajemen Pengamanan (SMP)</div>
             <div class="cover-subtitle">Objek Vital Nasional Bidang ESDM</div>
             
@@ -1075,8 +1083,12 @@
             document.getElementById('out-sign-tanggal').innerText = formattedDate;
             document.getElementById('out-sign-perusahaan').innerText = companyVal;
 
-            const qrPayload = `Nama Obvitnas: ${nameVal}\nPengelola: ${companyVal}\nLokasi: ${locationVal}\nTanggal Dokumen: ${formattedDate}`;
-            document.getElementById('out-qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrPayload)}`;
+            // Mengambil koordinat berdasarkan pilihan dropdown
+            const selectedIdx = document.getElementById('inp-master-obvitnas').value;
+            const targetData = OBVITNAS_MASTER_DATA[selectedIdx];
+            const mapUrl = `https://www.google.com/maps?q=${targetData.lat},${targetData.lng}`;
+            
+            document.getElementById('out-qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(mapUrl)}`;
 
             const editorKeys = [
                 'latar-belakang', 'dasar-hukum', 'gambaran-umum', 
