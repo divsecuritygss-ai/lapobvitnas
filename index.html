@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Pengisian Laporan SMP Obvitnas</title>
+    <style>
+        /* ==========================================
+           GLOBAL & SCREEN (WEB UI) STYLES
+           ========================================== */
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #1e293b;
+            --accent-color: #0284c7;
+            --bg-color: #f8fafc;
+            --text-color: #0f172a;
+            --border-color: #cbd5e1;
+            --warning-color: #dc2626;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        @media screen {
+            .app-container {
+                max-width: 950px;
+                margin: 40px auto;
+                background: #ffffff;
+                border-radius: 8px;
+                box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+                overflow: hidden;
+            }
+
+            .app-header {
+                background-color: var(--primary-color);
+                color: #ffffff;
+                padding: 35px 40px;
+                text-align: center;
+                border-bottom: 4px solid var(--accent-color);
+            }
+
+            .app-header h1 {
+                margin: 0;
+                font-size: 22px;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .app-header p {
+                margin: 10px 0 0 0;
+                color: #94a3b8;
+                font-size: 14px;
+            }
+
+            .form-container {
+                padding: 40px;
+            }
+
+            .form-section {
+                background: #f8fafc;
+                border: 1px solid #e2e8f0;
+                border-radius: 6px;
+                padding: 25px;
+                margin-bottom: 30px;
+            }
+
+            .form-section-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--primary-color);
+                margin-bottom: 20px;
+                padding-bottom: 8px;
+                border-bottom: 2px solid var(--border-color);
+                text-transform: uppercase;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .form-group label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 4px;
+                color: var(--secondary-color);
+                font-size: 15px;
+            }
+
+            .esdm-guide-box {
+                background-color: #eff6ff;
+                border-left: 4px solid #3b82f6;
+                padding: 10px 14px;
+                margin-bottom: 10px;
+                border-radius: 0 4px 4px 0;
+            }
+
+            .esdm-guide-box span.title {
+                display: block;
+                font-size: 11px;
+                text-transform: uppercase;
+                font-weight: bold;
+                color: #1d4ed8;
+                letter-spacing: 0.5px;
+                margin-bottom: 2px;
+            }
+
+            .esdm-guide-box p {
+                margin: 0;
+                font-size: 13px;
+                color: #1e40af;
+                line-height: 1.4;
+            }
+
+            .size-warning-box {
+                background-color: #fef2f2;
+                border: 1px solid #fee2e2;
+                border-left: 4px solid var(--warning-color);
+                color: #991b1b;
+                padding: 10px 14px;
+                border-radius: 4px;
+                font-size: 13px;
+                margin-bottom: 15px;
+                font-weight: 500;
+            }
+
+            input[type="text"], 
+            input[type="date"],
+            select,
+            input[type="file"] {
+                width: 100%;
+                padding: 11px 12px;
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                font-family: inherit;
+                font-size: 14px;
+                box-sizing: border-box;
+                background-color: #ffffff;
+                color: var(--text-color);
+            }
+
+            select:focus, input[type="text"]:focus, input[type="date"]:focus {
+                outline: none;
+                border-color: var(--accent-color);
+                box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+            }
+
+            input[readonly] {
+                background-color: #e2e8f0;
+                color: #475569;
+                cursor: not-allowed;
+            }
+
+            .editor-wrapper {
+                border: 1px solid #cbd5e1;
+                border-radius: 4px;
+                background: #ffffff;
+                overflow: hidden;
+            }
+
+            .editor-toolbar {
+                background: #f1f5f9;
+                border-bottom: 1px solid #cbd5e1;
+                padding: 6px 10px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .editor-toolbar button {
+                background: #ffffff;
+                border: 1px solid #cbd5e1;
+                border-radius: 3px;
+                padding: 4px 12px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                color: var(--secondary-color);
+                transition: all 0.2s;
+            }
+
+            .editor-toolbar button:hover {
+                background: #e2e8f0;
+                border-color: #94a3b8;
+            }
+
+            .rich-editor {
+                min-height: 145px;
+                padding: 12px 15px;
+                font-size: 14px;
+                outline: none;
+                box-sizing: border-box;
+                background: #ffffff;
+                overflow-y: auto;
+            }
+
+            .rich-editor, .rich-editor *, .rich-editor p, .rich-editor li {
+                text-align: justify !important;
+                text-justify: inter-word !important;
+            }
+
+            .rich-editor ol, .rich-editor ul {
+                padding-left: 24px;
+                margin: 5px 0;
+                list-style-position: outside;
+            }
+
+            .rich-editor li {
+                margin-bottom: 6px;
+            }
+
+            .dynamic-attachment-item {
+                background: #ffffff;
+                border: 1px solid #e2e8f0;
+                padding: 15px;
+                border-radius: 6px;
+                margin-bottom: 15px;
+                position: relative;
+            }
+
+            .btn-remove-attachment {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                background: var(--warning-color);
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 4px 10px;
+                font-size: 11px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .btn-remove-attachment:hover {
+                background: #dc2626;
+            }
+
+            .btn-add-attachment {
+                background: #10b981;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 4px;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+            }
+
+            .attachment-preview-box {
+                margin-top: 10px;
+                display: none;
+            }
+
+            .attachment-preview-box img {
+                width: 90px;
+                height: 90px;
+                object-fit: cover;
+                border-radius: 4px;
+                border: 1px solid #cbd5e1;
+            }
+
+            .action-bar {
+                background: #f8fafc;
+                padding: 20px 40px;
+                border-top: 1px solid #e2e8f0;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .btn-export {
+                background-color: var(--accent-color);
+                color: #ffffff;
+                border: none;
+                padding: 12px 28px;
+                font-size: 15px;
+                font-weight: 600;
+                border-radius: 4px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            #print-area {
+                display: none;
+            }
+        }
+
+        /* ==========================================
+           PRINT & PDF STYLES (Format Resmi Eksekutif)
+           ========================================== */
+        @media print {
+            .app-container { display: none !important; }
+            body { background-color: #ffffff; margin: 0; padding: 0; }
+            
+            @page {
+                size: A4;
+                margin: 0mm; 
+            }
+
+            #print-area {
+                display: block !important;
+                font-family: Arial, sans-serif !important;
+                color: #000000;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+            /* COVER PAGE LAYOUT (Halaman 1) */
+            .cover-page {
+                page-break-after: always;
+                height: 297mm;
+                position: relative;
+                box-sizing: border-box;
+                padding: 40mm 25mm 30mm 25mm;
+                background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+                border-top: 25mm solid #0f172a; 
+            }
+
+            .cover-badge {
+                font-size: 11pt;
+                font-weight: bold;
+                color: #0284c7;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                margin-bottom: 20px;
+            }
+
+            .cover-title {
+                font-size: 26pt !important;
+                font-weight: 800;
+                color: #0f172a;
+                line-height: 1.3;
+                margin-bottom: 15px;
+                text-transform: uppercase;
+                text-align: left !important;
+            }
+
+            .cover-subtitle {
+                font-size: 14pt;
+                font-weight: 600;
+                color: #475569;
+                margin-bottom: 60mm;
+                text-transform: uppercase;
+                border-bottom: 3px solid #0284c7;
+                padding-bottom: 15px;
+                width: 150mm;
+            }
+
+            .cover-identity-card {
+                background-color: #ffffff;
+                border-left: 6px solid #0f172a;
+                padding: 25px;
+                width: 140mm;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+                position: absolute;
+                bottom: 45mm;
+            }
+
+            .cover-identity-card table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .cover-identity-card td {
+                padding: 6px 0;
+                font-size: 11pt;
+                vertical-align: top;
+            }
+
+            .cover-identity-card td.label {
+                font-weight: bold;
+                color: #475569;
+                width: 45mm;
+            }
+
+            .cover-footer {
+                position: absolute;
+                bottom: 20mm;
+                left: 25mm;
+                font-size: 10pt;
+                color: #94a3b8;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            /* REURUTAN ISI LAPORAN (Halaman 2+) */
+            .report-page-body {
+                padding: 30mm 20mm 25mm 25mm;
+                box-sizing: border-box;
+            }
+
+            #print-area h1.inner-title {
+                font-size: 14pt !important;
+                font-weight: bold;
+                text-align: center;
+                text-transform: uppercase;
+                margin-top: 0;
+                margin-bottom: 35px;
+                color: #0f172a;
+                border-bottom: 2px solid #cbd5e1;
+                padding-bottom: 10px;
+            }
+
+            .identity-table {
+                width: 100%;
+                margin-bottom: 35px;
+                border-collapse: collapse;
+                background-color: #f8fafc;
+                border: 1px solid #e2e8f0;
+            }
+
+            .identity-table td {
+                padding: 10px 15px;
+                vertical-align: top;
+                font-size: 11pt;
+            }
+
+            .identity-table td.label-col {
+                width: 160px;
+                font-weight: bold;
+                color: #334155;
+            }
+
+            .identity-table td.separator-col {
+                width: 15px;
+                text-align: center;
+            }
+
+            .section-title {
+                font-weight: bold;
+                font-size: 12pt !important;
+                display: flex;
+                margin-top: 35px;
+                text-transform: uppercase;
+                page-break-after: avoid;
+                background-color: #f1f5f9;
+                padding: 8px 12px;
+                border-left: 5px solid #0284c7; 
+                color: #0f172a;
+            }
+
+            .section-title .bab-prefix {
+                width: 90px;
+                flex-shrink: 0;
+            }
+
+            .sub-section {
+                padding-left: 15px;
+                margin-top: 10px;
+            }
+
+            .sub-section-item {
+                display: flex;
+                margin-bottom: 18px;
+                page-break-inside: avoid;
+            }
+
+            .sub-section-item .alpha-prefix {
+                width: 30px;
+                flex-shrink: 0;
+                font-weight: bold;
+                color: #0284c7;
+            }
+
+            .sub-section-item .content-body {
+                width: 100%;
+            }
+
+            /* FORCE RATA KIRI KANAN MUTLAK */
+            #print-area .content-text, 
+            #print-area .content-text *, 
+            #print-area .content-text p, 
+            #print-area .content-text div,
+            #print-area .content-text span,
+            #print-area .content-text ol,
+            #print-area .content-text ul,
+            #print-area .content-text li {
+                text-align: justify !important;
+                text-justify: inter-word !important;
+                font-size: 11pt !important;
+            }
+
+            .content-text {
+                margin-top: 6px;
+                font-weight: normal;
+                width: 100%;
+            }
+
+            .content-text p {
+                margin: 0 0 8px 0;
+            }
+
+            .content-text ol, .content-text ul {
+                padding-left: 24px;
+                margin: 6px 0;
+                list-style-position: outside; 
+            }
+
+            .content-text li {
+                margin-bottom: 6px;
+            }
+
+            /* FIXED: CLOSING STYLING BLOCK SECARA MUTLAK RATA KIRI (SEJAJAR KIRI) */
+            .closing-block {
+                margin-top: 40px;
+                page-break-inside: avoid;
+                border-top: 2px dashed #e2e8f0;
+                padding-top: 25px;
+                width: 100%;
+                text-align: left !important; /* Paksa Rata Kiri Kontainer Utama */
+            }
+
+            .signature-container {
+                width: 100mm;
+                margin-left: 0 !important; /* Hapus margin otomatis agar mepet ke sisi kiri kertas */
+                text-align: left !important;
+                font-size: 11pt;
+            }
+
+            .date-line {
+                margin-bottom: 15px;
+                text-align: left !important;
+            }
+
+            .print-qrcode-wrapper {
+                margin-bottom: 15px;
+                text-align: left !important;
+            }
+
+            .print-qrcode-wrapper img {
+                width: 35mm;
+                height: 35mm;
+                display: block;
+                border: 1px solid #cbd5e1;
+                padding: 4px;
+                background-color: #ffffff;
+                margin-left: 0 !important; /* Pastikan posisi QR Code mepet kiri */
+            }
+
+            .signer-line {
+                font-weight: bold;
+                margin-top: 5px;
+                line-height: 1.4;
+                text-align: left !important;
+            }
+
+            /* ATTACHMENT BERSERI LAYOUT */
+            .print-attachment-block {
+                page-break-before: always; 
+                padding: 30mm 20mm 25mm 25mm;
+                box-sizing: border-box;
+            }
+
+            .print-attachment-title {
+                font-size: 12pt;
+                font-weight: bold;
+                margin-bottom: 20px;
+                text-align: left;
+                text-transform: uppercase;
+                color: #0f172a;
+                border-bottom: 2px solid #0284c7;
+                padding-bottom: 8px;
+            }
+
+            .attachment-img {
+                display: block;
+                max-width: 100%;
+                max-height: 180mm;
+                margin: 0 auto;
+                object-fit: contain;
+                box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="app-header">
+            <h1>Portal Pengisian Laporan SMP Obvitnas</h1>
+            <p>Sistem Pengendalian Mutu Pelaporan Berbasis Panduan Resmi Ditjen Migas ESDM</p>
+        </div>
+
+        <div class="form-container">
+            <div class="form-section">
+                <div class="form-section-title">Pemilihan Wilayah Kerja & Identitas Obvitnas</div>
+                
+                <div class="form-group">
+                    <label style="color:var(--accent-color);">Pilih Objek Vital Nasional (Master Dropdown)</label>
+                    <select id="inp-master-obvitnas" onchange="handleObvitnasDropdownChange()">
+                        <option value="">-- Pilih Wilayah Kerja Obvitnas --</option>
+                        <option value="0">Fasilitas Wilayah Kerja "B" Block | PT Pema Global Energi | Prov. Aceh</option>
+                        <option value="1">Fasilitas Wilayah Kerja Siak | EMP Energi Gandewa | Kab. Kampar, Kab. Rokan Hilir, Prov. Riau</option>
+                        <option value="2">Fasilitas Wilayah Kerja Malacca Strait Onshore dan Offshore | PT Imbang Tata Alam | Perairan Selat Malaka, Prov. Riau</option>
+                        <option value="3">Fasilitas Wilayah Kerja Korinci Baru | EMP Korinci Baru Ltd. | Kab. Siak, Kab. Pelalawan, Prov. Riau</option>
+                        <option value="4">Fasilitas Wilayah Kerja Bentu | EMP Bentu Ltd. | Kab. Pelalawan, Prov. Riau</option>
+                        <option value="5">Fasilitas Wilayah Kerja Kampar | EMP Energi Riau | Kab. Kampar, Kab. Rokan Hilir, Prov. Riau</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Nama Obvitnas</label>
+                    <input type="text" id="inp-nama-obvitnas" readonly placeholder="Otomatis terisi berdasarkan dropdown...">
+                </div>
+                <div class="form-group">
+                    <label>Pengelola (Nama Perusahaan)</label>
+                    <input type="text" id="inp-pengelola" readonly placeholder="Otomatis terisi berdasarkan dropdown...">
+                </div>
+                <div class="form-group">
+                    <label>Lokasi Fisik Objek</label>
+                    <input type="text" id="inp-lokasi" readonly placeholder="Otomatis terisi berdasarkan dropdown...">
+                </div>
+                <div class="form-group">
+                    <label>Tanggal Tanda Tangan Laporan</label>
+                    <input type="date" id="inp-tanggal-laporan">
+                </div>
+            </div>
+
+            <script>
+                const OBVITNAS_MASTER_DATA = [
+                    { nama: 'Fasilitas Wilayah Kerja "B" Block', pengelola: 'PT Pema Global Energi', lokasi: 'Prov. Aceh' },
+                    { nama: 'Fasilitas Wilayah Kerja Siak', pengelola: 'EMP Energi Gandewa', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau' },
+                    { nama: 'Fasilitas Wilayah Kerja Malacca Strait Onshore dan Offshore', pengelola: 'PT Imbang Tata Alam', lokasi: 'Perairan Selat Malaka, Prov. Riau' },
+                    { nama: 'Fasilitas Wilayah Kerja Korinci Baru', pengelola: 'EMP Korinci Baru Ltd.', lokasi: 'Kab. Siak, Kab. Pelalawan, Prov. Riau' },
+                    { nama: 'Fasilitas Wilayah Kerja Bentu', pengelola: 'EMP Bentu Ltd.', lokasi: 'Kab. Pelalawan, Prov. Riau' },
+                    { nama: 'Fasilitas Wilayah Kerja Kampar', pengelola: 'EMP Energi Riau', lokasi: 'Kab. Kampar, Kab. Rokan Hilir, Prov. Riau' }
+                ];
+
+                function handleObvitnasDropdownChange() {
+                    const selectEl = document.getElementById('inp-master-obvitnas');
+                    const selectedIndex = selectEl.value;
+
+                    if (selectedIndex !== "") {
+                        const data = OBVITNAS_MASTER_DATA[selectedIndex];
+                        document.getElementById('inp-nama-obvitnas').value = data.nama;
+                        document.getElementById('inp-pengelola').value = data.pengelola;
+                        document.getElementById('inp-lokasi').value = data.lokasi;
+                    } else {
+                        document.getElementById('inp-nama-obvitnas').value = "";
+                        document.getElementById('inp-pengelola').value = "";
+                        document.getElementById('inp-lokasi').value = "";
+                    }
+                }
+
+                function createEditorFieldWithGuide(label, id, guideText) {
+                    document.write(`
+                        <div class="form-group">
+                            <label>${label}</label>
+                            <div class="esdm-guide-box">
+                                <span class="title">Item Wajib Dilaporkan (Panduan ESDM):</span>
+                                <p>${guideText}</p>
+                            </div>
+                            <div class="editor-wrapper">
+                                <div class="editor-toolbar">
+                                    <button type="button" onclick="formatText('bold', '${id}')" title="Tebal"><b>B</b></button>
+                                    <button type="button" onclick="formatText('insertOrderedList', '${id}')" title="Nomor Urut">1.</button>
+                                    <button type="button" onclick="formatText('insertUnorderedList', '${id}')" title="Poin Bullet">• List</button>
+                                    <button type="button" onclick="formatText('indent', '${id}')" title="Masuk Tingkatan">→ Masuk</button>
+                                    <button type="button" onclick="formatText('outdent', '${id}')" title="Keluar Tingkatan">← Keluar</button>
+                                    <button type="button" onclick="formatText('justifyFull', '${id}')" title="Rata Kiri-Kanan">Rata Kiri-Kanan</button>
+                                </div>
+                                <div id="${id}" class="rich-editor" contenteditable="true"></div>
+                            </div>
+                        </div>
+                    `);
+                }
+            </script>
+
+            <div class="form-section">
+                <div class="form-section-title">BAB I - PENDAHULUAN</div>
+                <script>
+                    createEditorFieldWithGuide('a. Latar Belakang', 'inp-latar-belakang', 'Uraikan kondisi umum operasional perusahaan, maksud penyusunan laporan, serta signifikansi strategis penerapan Sistem Manajemen Pengamanan (SMP) pada objek vital nasional.');
+                    createEditorFieldWithGuide('b. Dasar Hukum', 'inp-dasar-hukum', 'Sebutkan landasan hukum utama: Kepmen ESDM Nomor 385.K/BN.05/MEM.S/2025 tentang Objek Vital Nasional Bidang ESDM, Keppres Nomor 63 Tahun 2004 tentang Pengamanan Obvitnas, serta regulasi Polri/internal terkait.');
+                </script>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-title">BAB II - PROFIL OBJEK PENGAMANAN</div>
+                <script>
+                    createEditorFieldWithGuide('a. Gambaran Umum Objek Pengamanan', 'inp-gambaran-umum', 'Laporkan batas wilayah kerja geografis secara mendetail mencakup Batas Utara, Batas Timur, Batas Selatan, Batas Barat, koordinat fisik posisi, serta spesifikasi jenis kegiatan usaha hulu/hilir migas.');
+                    createEditorFieldWithGuide('b. Potensi Resiko Keamanan', 'inp-potensi-resiko', 'Paparkan hasil identifikasi dan analisis ancaman kerawanan, potensi gangguan keamanan baik dari internal maupun eksternal, konflik sosial, serta kerawanan geografis di sekitar area operasi.');
+                </script>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-title">BAB III - KOMPONEN SISTEM MANAJEMEN PENGAMANAN</div>
+                <script>
+                    createEditorFieldWithGuide('a. Mekanisme Pengamanan', 'inp-mekanisme', 'Laporkan status pola pengamanan (apakah pola Mandiri atau pola Kerja Sama dengan Polri/TNI), identitas BUJP Mitra Pengamanan yang dikerahkan, serta melampirkan penjelasan Bagan Struktur Organisasi Korps Keamanan.');
+                    createEditorFieldWithGuide('b. Perencanaan pengamanan', 'inp-perencanaan', 'Uraikan penyusunan rencana kontingensi (contingency plan), dokumen rencana pengamanan jangka panjang, mitigasi peta kerawanan, serta alokasi target sasaran pengamanan.');
+                    createEditorFieldWithGuide('c. Pelaksanaan', 'inp-pelaksanaan', 'Uraikan implementasi nyata pengamanan fisik (physical security) lapangan, jumlah dan sebaran pos jaga, zonasi wilayah kerja (Ring 1, Ring 2, Ring 3), konfigurasi kekuatan personel, serta perangkat teknologi pengamanan yang digunakan (CCTV, perimeter fence, access control).');
+                    createEditorFieldWithGuide('d. Pengawasan', 'inp-pengawasan', 'Laporkan rekam jejak tata kelola pengawasan meliputi pelaksanaan Audit Internal/Eksternal SMP Obvitnas, pelaksanaan inspeksi mendadak, frekuensi patroli rutin, serta agenda rapat evaluasi berkala kinerja pengamanan.');
+                    createEditorFieldWithGuide('e. Hambatan', 'inp-hambatan', 'Sertakan kronologi Laporan Kejadian Pengamanan (insiden kriminalitas/gangguan jika ada), halangan fungsional fasilitas kontrol keamanan, kendala sosial kemasyarakatan, atau tulis \"NIHIL\" jika tidak terjadi kejadian menonjol.');
+                    createEditorFieldWithGuide('f. Tindakan Perbaikan', 'inp-perbaikan', 'Uraikan langkah perbaikan (tindakan korektif) yang telah dieksekusi korporasi untuk mengatasi hambatan di atas serta penyusunan berkas Rencana Tindak Lanjut (RTL) ke depan.');
+                </script>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-title">BAB IV - PENUTUP</div>
+                <script>
+                    createEditorFieldWithGuide('Penutup Laporan', 'inp-penutup', 'Tuliskan kesimpulan menyeluruh status tingkat keamanan fasilitas, komitmen manajemen puncak terhadap kelangsungan implementasi pengamanan, serta rekomendasi ke kementerian.');
+                </script>
+            </div>
+
+            <div class="form-section">
+                <div class="form-section-title">BAB V - LAMPIRAN BERKAS</div>
+                <div class="size-warning-box">
+                    PENTING: Ukuran file foto/scan masing-masing lampiran MAKSIMAL 5 MB. Pastikan file dikompres terlebih dahulu demi mencegah kegagalan ekspor PDF.
+                </div>
+                
+                <div id="dynamic-attachments-container">
+                    <div class="dynamic-attachment-item" data-index="0">
+                        <div style="margin-bottom:12px;">
+                            <label style="font-size:13px; font-weight:600; margin-bottom:4px; display:block;">Judul Dokumen Lampiran</label>
+                            <input type="text" class="attach-title" placeholder="Contoh: Lampiran 1. Scan Struktur Organisasi Komando Pengamanan">
+                        </div>
+                        <div>
+                            <label style="font-size:13px; font-weight:600; margin-bottom:4px; display:block;">Pilih File Scan/Gambar (MAX 5MB)</label>
+                            <input type="file" class="attach-file" accept="image/png, image/jpeg" onchange="validateAndPreviewAttachment(this)">
+                            <div class="attachment-preview-box"><img src="" alt="Pratinjau"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <button type="button" class="btn-add-attachment" onclick="addNewAttachmentField()">
+                        + Tambah Kolom Lampiran Baru
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar">
+            <button class="btn-export" onclick="executeOfficialPDFExport()">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                </svg>
+                Cetak / Simpan Laporan ke PDF Resmi
+            </button>
+        </div>
+    </div>
+
+    <div id="print-area">
+        
+        <div class="cover-page">
+            <div class="cover-badge">Dokumen Laporan Internal Eksekutif</div>
+            <div class="cover-title">Laporan Penerapan<br>Sistem Manajemen Pengamanan (SMP)</div>
+            <div class="cover-subtitle">Objek Vital Nasional Bidang ESDM</div>
+            
+            <div class="cover-identity-card">
+                <table>
+                    <tr>
+                        <td class="label">Nama Obvitnas</td>
+                        <td style="width:5px;">:</td>
+                        <td id="cov-nama-obvitnas">-</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Nama Pengelola</td>
+                        <td>:</td>
+                        <td id="cov-pengelola">-</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Lokasi Wilayah</td>
+                        <td>:</td>
+                        <td id="cov-lokasi">-</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Tanggal Pembuatan</td>
+                        <td>:</td>
+                        <td id="cov-tanggal">-</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="cover-footer">
+                Direktorat Jenderal Minyak dan Gas Bumi &bull; Kementerian ESDM RI
+            </div>
+        </div>
+
+        <div class="report-page-body">
+            <h1 class="inner-title">LAPORAN AKTUAL PENERAPAN SISTEM MANAJEMEN PENGAMANAN</h1>
+
+            <table class="identity-table">
+                <tr>
+                    <td class="label-col">Nama Obvitnas</td>
+                    <td class="separator-col">:</td>
+                    <td id="out-nama-obvitnas"></td>
+                </tr>
+                <tr>
+                    <td class="label-col">Pengelola</td>
+                    <td class="separator-col">:</td>
+                    <td id="out-pengelola"></td>
+                </tr>
+                <tr>
+                    <td class="label-col">Lokasi Objek</td>
+                    <td class="separator-col">:</td>
+                    <td id="out-lokasi"></td>
+                </tr>
+            </table>
+
+            <div class="section-title"><div class="bab-prefix">BAB I</div><div>PENDAHULUAN</div></div>
+            <div class="sub-section">
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">a.</div>
+                    <div class="content-body">Latar Belakang<div class="content-text" id="out-latar-belakang"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">b.</div>
+                    <div class="content-body">Dasar Hukum<div class="content-text" id="out-dasar-hukum"></div></div>
+                </div>
+            </div>
+
+            <div class="section-title"><div class="bab-prefix">BAB II</div><div>PROFIL OBJEK PENGAMANAN</div></div>
+            <div class="sub-section">
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">a.</div>
+                    <div class="content-body">Gambaran Umum Objek Pengamanan<div class="content-text" id="out-gambaran-umum"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">b.</div>
+                    <div class="content-body">Potensi Resiko Keamanan<div class="content-text" id="out-potensi-resiko"></div></div>
+                </div>
+            </div>
+
+            <div class="section-title"><div class="bab-prefix">BAB III</div><div>KOMPONEN SISTEM MANAJEMEN PENGAMANAN</div></div>
+            <div class="sub-section">
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">a.</div>
+                    <div class="content-body">Mekanisme Pengamanan<div class="content-text" id="out-mekanisme"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">b.</div>
+                    <div class="content-body">Perencanaan pengamanan<div class="content-text" id="out-perencanaan"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">c.</div>
+                    <div class="content-body">Pelaksanaan<div class="content-text" id="out-pelaksanaan"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">d.</div>
+                    <div class="content-body">Pengawasan<div class="content-text" id="out-pengawasan"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">e.</div>
+                    <div class="content-body">Hambatan<div class="content-text" id="out-hambatan"></div></div>
+                </div>
+                <div class="sub-section-item">
+                    <div class="alpha-prefix">f.</div>
+                    <div class="content-body">Tindakan Perbaikan<div class="content-text" id="out-perbaikan"></div></div>
+                </div>
+            </div>
+
+            <div class="section-title"><div class="bab-prefix">BAB IV</div><div>PENUTUP</div></div>
+            <div class="sub-section">
+                <div class="content-text" id="out-penutup" style="margin-top: 0;"></div>
+            </div>
+
+            <div class="closing-block">
+                <div class="signature-container">
+                    <div class="date-line">
+                        Dibuat di: <span id="out-sign-lokasi">[Lokasi Objek]</span><br>
+                        Pada Tanggal: <span id="out-sign-tanggal">[Tanggal]</span>
+                    </div>
+                    
+                    <div class="print-qrcode-wrapper">
+                        <img id="out-qrcode" src="" alt="QR Code Validasi Laporan Resmi">
+                    </div>
+                    
+                    <div class="signer-line">
+                        ____________________________________<br>
+                        <span id="out-sign-perusahaan">Pengelola Obvitnas</span><br>
+                        (Pimpinan BU / BUT / KKKS)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="out-print-attachments-container"></div>
+    </div>
+
+    <script>
+        let attachmentCounter = 1;
+        let attachmentsDataMap = {}; 
+
+        function formatText(command, elementId) {
+            const editor = document.getElementById(elementId);
+            editor.focus();
+            document.execCommand(command, false, null);
+        }
+
+        function addNewAttachmentField() {
+            const container = document.getElementById('dynamic-attachments-container');
+            const newIndex = attachmentCounter++;
+            
+            const div = document.createElement('div');
+            div.className = 'dynamic-attachment-item';
+            div.setAttribute('data-index', newIndex);
+            div.innerHTML = `
+                <button type="button" class="btn-remove-attachment" onclick="removeAttachmentField(${newIndex})">Hapus</button>
+                <div style="margin-bottom:12px;">
+                    <label style="font-size:13px; font-weight:600; margin-bottom:4px; display:block;">Judul Dokumen Lampiran</label>
+                    <input type="text" class="attach-title" placeholder="Masukkan judul lampiran spesifik...">
+                </div>
+                <div>
+                    <label style="font-size:13px; font-weight:600; margin-bottom:4px; display:block;">Pilih File Scan/Gambar (MAX 5MB)</label>
+                    <input type="file" class="attach-file" accept="image/png, image/jpeg" onchange="validateAndPreviewAttachment(this)">
+                    <div class="attachment-preview-box"><img src="" alt="Pratinjau"></div>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function removeAttachmentField(index) {
+            const item = document.querySelector(`.dynamic-attachment-item[data-index="${index}"]`);
+            if (item) {
+                item.remove();
+                delete attachmentsDataMap[index];
+            }
+        }
+
+        function validateAndPreviewAttachment(inputElement) {
+            const itemContainer = inputElement.closest('.dynamic-attachment-item');
+            const index = itemContainer.getAttribute('data-index');
+            const file = inputElement.files[0];
+            const previewBox = itemContainer.querySelector('.attachment-preview-box');
+            const previewImg = previewBox.querySelector('img');
+
+            if (file) {
+                if (file.size > 5242880) {
+                    alert("Gagal mengunggah! Ukuran file '" + file.name + "' adalah " + (file.size / (1024 * 1024)).toFixed(2) + " MB (Melebihi Batas Maksimal 5 MB). Silakan kompres gambar terlebih dahulu.");
+                    inputElement.value = ""; 
+                    previewBox.style.display = 'none';
+                    delete attachmentsDataMap[index];
+                    return;
+                }
+
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        attachmentsDataMap[index] = e.target.result;
+                        previewImg.src = e.target.result;
+                        previewBox.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            } else {
+                previewBox.style.display = 'none';
+                delete attachmentsDataMap[index];
+            }
+        }
+
+        function formatDateIndonesian(dateString) {
+            if (!dateString) return '-';
+            const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            const date = new Date(dateString);
+            if (isNaN(date)) return dateString;
+            return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+        }
+
+        function processOfficialJustifyText(htmlContent) {
+            let trimmed = htmlContent.trim();
+            if (trimmed === "" || trimmed === "<br>") return "-";
+            if (!trimmed.startsWith('<p>') && !trimmed.startsWith('<ol>') && !trimmed.startsWith('<ul>') && !trimmed.startsWith('<div>')) {
+                return `<p style="text-align: justify !important; text-justify: inter-word !important; margin: 0 0 8px 0;">${trimmed}</p>`;
+            }
+            return trimmed;
+        }
+
+        function executeOfficialPDFExport() {
+            const nameVal = document.getElementById('inp-nama-obvitnas').value.trim();
+            const companyVal = document.getElementById('inp-pengelola').value.trim();
+            const locationVal = document.getElementById('inp-lokasi').value.trim();
+            const rawDate = document.getElementById('inp-tanggal-laporan').value;
+            const formattedDate = formatDateIndonesian(rawDate);
+
+            if (!nameVal) {
+                alert("Peringatan: Silakan pilih Wilayah Kerja Obvitnas pada Dropdown di bagian atas terlebih dahulu sebelum mengekspor ke PDF!");
+                return;
+            }
+
+            document.getElementById('cov-nama-obvitnas').innerText = nameVal;
+            document.getElementById('cov-pengelola').innerText = companyVal;
+            document.getElementById('cov-lokasi').innerText = locationVal;
+            document.getElementById('cov-tanggal').innerText = formattedDate;
+
+            document.getElementById('out-nama-obvitnas').innerText = nameVal;
+            document.getElementById('out-pengelola').innerText = companyVal;
+            document.getElementById('out-lokasi').innerText = locationVal;
+
+            document.getElementById('out-sign-lokasi').innerText = locationVal;
+            document.getElementById('out-sign-tanggal').innerText = formattedDate;
+            document.getElementById('out-sign-perusahaan').innerText = companyVal;
+
+            const qrPayload = `Nama Obvitnas: ${nameVal}\nPengelola: ${companyVal}\nLokasi: ${locationVal}\nTanggal Dokumen: ${formattedDate}`;
+            document.getElementById('out-qrcode').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(qrPayload)}`;
+
+            const editorKeys = [
+                'latar-belakang', 'dasar-hukum', 'gambaran-umum', 
+                'potensi-resiko', 'mekanisme', 'perencanaan', 
+                'pelaksanaan', 'pengawasan', 'hambatan', 
+                'perbaikan', 'penutup'
+            ];
+            editorKeys.forEach(key => {
+                const htmlContent = document.getElementById('inp-' + key).innerHTML;
+                document.getElementById('out-' + key).innerHTML = processOfficialJustifyText(htmlContent);
+            });
+
+            const printAttachmentContainer = document.getElementById('out-print-attachments-container');
+            printAttachmentContainer.innerHTML = ''; 
+
+            const babVTitle = document.createElement('div');
+            babVTitle.className = 'print-attachment-block';
+            babVTitle.innerHTML = `<div class="print-attachment-title">BAB V &nbsp;&nbsp; LAMPIRAN DOKUMEN BUKTI FISIK</div>`;
+            printAttachmentContainer.appendChild(babVTitle);
+
+            const attachmentItems = document.querySelectorAll('.dynamic-attachment-item');
+            attachmentItems.forEach(item => {
+                const index = item.getAttribute('data-index');
+                const titleVal = item.querySelector('.attach-title').value.trim();
+                const imageSrc = attachmentsDataMap[index];
+
+                if (titleVal || imageSrc) {
+                    const block = document.createElement('div');
+                    block.className = 'print-attachment-block';
+                    block.innerHTML = `
+                        <div class="print-attachment-title">${titleVal ? titleVal : 'Dokumen Lampiran Bukti Fisik'}</div>
+                        ${imageSrc ? `<img src="${imageSrc}" class="attachment-img" alt="Lampiran">` : '<div style="font-style:italic; font-size:11pt; color:#555;">(Berkas foto/scan bukti fisik belum diunggah oleh pengelola)</div>'}
+                    `;
+                    printAttachmentContainer.appendChild(block);
+                }
+            });
+
+            window.print();
+        }
+    </script>
+</body>
+</html>
